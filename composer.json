@@ -1,0 +1,37 @@
+{
+  "name": "pointblue/laravel",
+  "description": "Views used in Point Blue Applications",
+  "keywords": ["pointblue", "laravel"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Martin Magana",
+      "email": "mmagana@gmail.com"
+    },
+    {
+      "name": "Brad Sechelski",
+      "email": "bsechelski@pointblue.org"
+    },
+    {
+      "name": "Tyler Field",
+      "email": "tfield@pointblue.org"
+    },
+    {
+      "name": "Doug Moody",
+      "email": "dmoody@pointblue.org"
+    },
+    {
+      "name": "Michael Fitzgibbon",
+      "email": "mfitzgibbon@pointblue.org"
+    }
+  ],
+  "type": "project",
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "PointBlue\\Laravel\\": "src/"
+    }
+  }
+}
