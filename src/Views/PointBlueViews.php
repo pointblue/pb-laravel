@@ -48,6 +48,6 @@ class PointBlueViews extends Command
     private function installFooter()
     {
 	    $footerContents = file_get_contents(__DIR__ . '/blades/pb-footer.blade.php');
-	    file_put_contents(__DIR__ . '/../../../../resources/views/pb-footer.blade.php', $footerContents);
+	    file_put_contents(__DIR__ . '/../../../../../resources/views/pb-footer.blade.php', $footerContents);
     }
 }
