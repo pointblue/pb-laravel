@@ -1,6 +1,6 @@
 {
   "name": "pointblue/laravel",
-  "description": "Views used in Point Blue Applications",
+  "description": "Larvel components and code used for Point Blue Applications",
   "keywords": ["pointblue", "laravel"],
   "license": "MIT",
   "authors": [

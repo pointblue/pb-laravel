@@ -6,6 +6,13 @@ use Illuminate\Console\Command;
 
 class PointBlueViews extends Command
 {
+	const VIEWS_DEST_PATH = '/../../../../../resources/views/';
+	const PARTIALS_DEST_PATH = 'partials/';
+	const UNIVERSAL_PARTIALS_DEST_PATH = 'universal/';
+	const FOOTER_BLADE_DEST_FILENAME = 'pb-footer.blade.php';
+
+	const BLADES_PATH = '/blades/';
+	const FOOTER_BLADE_FILENAME = 'pb-footer.blade.php';
     /**
      * The name and signature of the console command.
      *
@@ -47,7 +54,10 @@ class PointBlueViews extends Command
 
     private function installFooter()
     {
-	    $footerContents = file_get_contents(__DIR__ . '/blades/pb-footer.blade.php');
-	    file_put_contents(__DIR__ . '/../../../../../resources/views/pb-footer.blade.php', $footerContents);
+	    $footerDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
+	    $footerBladeFilePath = __DIR__ . self::BLADES_PATH . self::FOOTER_BLADE_FILENAME;
+	    mkdir($footerDestPath, 0775);
+	    $footerContents = file_get_contents($footerBladeFilePath);
+	    file_put_contents($footerDestPath . self::FOOTER_BLADE_DEST_FILENAME, $footerContents);
     }
 }
