@@ -1,6 +1,8 @@
 # Point Blue Laravel
 
-Larvel code for Point Blue
+Shared Larvel code for Point Blue applications
+
+Install with command `composer require pointblue/laravel`
 
 ## Views
 
@@ -11,5 +13,5 @@ views:
 
   - `footer` - Standard Point Blue footer
   
-After installing the view, you can manually move it to a more appropraite
-location for use in your laravel app.
+The view will be installed to the directory
+`resources/views/partials/universal`
