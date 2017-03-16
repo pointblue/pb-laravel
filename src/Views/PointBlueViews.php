@@ -55,6 +55,10 @@ class PointBlueViews extends Command
 
     private function installView($viewName)
     {
+        $viewDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
+        $viewSourcePath = __DIR__ . self::BLADES_PATH;
+        self::makeDirectory($viewDestPath);
+
         switch ($viewName){
             case 'footer':
                 $filename = self::FOOTER_BLADE_FILENAME;
@@ -63,6 +67,12 @@ class PointBlueViews extends Command
             case 'navbar':
                 $filename = self::NAVBAR_BLADE_FILENAME;
                 $filenameDest = self::NAVBAR_BLADE_DEST_FILENAME;
+
+                $bespokeFile = 'currentProject.blade.php';
+                $bespokeSource = $viewSourcePath . $bespokeFile;
+                $bespokeDestination = viewDestPath . "/../". $bespokeFile;
+                self::copyFile($bespokeSource, $bespokeDestination);
+
                 break;
             case 'loading':
                 $filename = self::LOADING_BLADE_FILENAME;
@@ -70,13 +80,21 @@ class PointBlueViews extends Command
                 break;
         }
 
-        $viewDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
-        $viewBladeFilePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewBladeFilePath = $viewSourcePath . $filename;
+        self::copyFile($viewBladeFilePath,$viewDestPath.$filenameDest);
+    }
+
+    private function makeDirectory($viewDestPath)
+    {
         if(!is_dir($viewDestPath)){
             //Directory does not exist, so lets create it.
-            mkdir($viewDestPath, 0775);
+            mkdir($viewDestPath, 0775, true);
         }
-        $viewContents = file_get_contents($viewBladeFilePath);
-        file_put_contents($viewDestPath . $filenameDest, $viewContents);
+    }
+
+    private function copyFile($source, $destination)
+    {
+        $viewContents = file_get_contents($source);
+        file_put_contents($destination, $viewContents);
     }
 }
