@@ -2,8 +2,12 @@
 
 Shared Larvel code for Point Blue applications
 
-Install with command `composer require pointblue/laravel`
+Install with command `composer require pointblue/laravel`  
 
+In *app/Console/Kernel.php*:  
+ - add `use PointBlue\Laravel\Views\PointBlueViews;` to the top of the page 
+ - add `PointBlueViews::class,` to the `$commands` array
+  
 ## Views
 
 To install a view, use the command `php artisan pb:view {viewname}` 
