@@ -6,13 +6,17 @@ use Illuminate\Console\Command;
 
 class PointBlueViews extends Command
 {
-	const VIEWS_DEST_PATH = '/../../../../../resources/views/';
-	const PARTIALS_DEST_PATH = 'partials/';
-	const UNIVERSAL_PARTIALS_DEST_PATH = 'universal/';
-	const FOOTER_BLADE_DEST_FILENAME = 'pb-footer.blade.php';
+    const VIEWS_DEST_PATH = '/../../../../../resources/views/';
+    const PARTIALS_DEST_PATH = 'partials/';
+    const UNIVERSAL_PARTIALS_DEST_PATH = 'universal/';
+    const FOOTER_BLADE_DEST_FILENAME = 'pb-footer.blade.php';
+    const NAVBAR_BLADE_DEST_FILENAME = 'pb-navbar.blade.php';
+    const LOADING_BLADE_DEST_FILENAME = 'pb-loading.blade.php';
 
-	const BLADES_PATH = '/blades/';
-	const FOOTER_BLADE_FILENAME = 'pb-footer.blade.php';
+    const BLADES_PATH = '/blades/';
+    const FOOTER_BLADE_FILENAME = 'pb-footer.blade.php';
+    const NAVBAR_BLADE_FILENAME = 'pb-navbar.blade.php';
+    const LOADING_BLADE_FILENAME = 'pb-loading.blade.php';
     /**
      * The name and signature of the console command.
      *
@@ -46,18 +50,33 @@ class PointBlueViews extends Command
     {
         $viewName = $this->argument('viewname');
 
-	    if($viewName == 'footer')
-	    {
-		    $this->installFooter();
-	    }
+        $this->installView($viewName);
     }
 
-    private function installFooter()
+    private function installView($viewName)
     {
-	    $footerDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
-	    $footerBladeFilePath = __DIR__ . self::BLADES_PATH . self::FOOTER_BLADE_FILENAME;
-	    mkdir($footerDestPath, 0775);
-	    $footerContents = file_get_contents($footerBladeFilePath);
-	    file_put_contents($footerDestPath . self::FOOTER_BLADE_DEST_FILENAME, $footerContents);
+        switch ($viewName){
+            case 'footer':
+                $filename = self::FOOTER_BLADE_FILENAME;
+                $filenameDest = self::FOOTER_BLADE_DEST_FILENAME;
+                break;
+            case 'navbar':
+                $filename = self::NAVBAR_BLADE_FILENAME;
+                $filenameDest = self::NAVBAR_BLADE_DEST_FILENAME;
+                break;
+            case 'loading':
+                $filename = self::LOADING_BLADE_FILENAME;
+                $filenameDest = self::LOADING_BLADE_DEST_FILENAME;
+                break;
+        }
+
+        $viewDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
+        $viewBladeFilePath = __DIR__ . self::BLADES_PATH . $filename;
+        if(!is_dir($viewDestPath)){
+            //Directory does not exist, so lets create it.
+            mkdir($viewDestPath, 0775);
+        }
+        $viewContents = file_get_contents($viewBladeFilePath);
+        file_put_contents($viewDestPath . $filenameDest, $viewContents);
     }
 }
