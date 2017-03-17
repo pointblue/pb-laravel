@@ -6,13 +6,8 @@ use Illuminate\Console\Command;
 
 class PointBlueViews extends Command
 {
-	const VIEWS_DEST_PATH = '/../../../../../resources/views/';
-	const PARTIALS_DEST_PATH = 'partials/';
-	const UNIVERSAL_PARTIALS_DEST_PATH = 'universal/';
-	const FOOTER_BLADE_DEST_FILENAME = 'pb-footer.blade.php';
+    const BLADES_PATH = '/blades/';
 
-	const BLADES_PATH = '/blades/';
-	const FOOTER_BLADE_FILENAME = 'pb-footer.blade.php';
     /**
      * The name and signature of the console command.
      *
@@ -46,18 +41,67 @@ class PointBlueViews extends Command
     {
         $viewName = $this->argument('viewname');
 
-	    if($viewName == 'footer')
-	    {
-		    $this->installFooter();
-	    }
+        $this->installView($viewName);
     }
 
-    private function installFooter()
+    private function installView($viewName)
     {
-	    $footerDestPath = __DIR__ . self::VIEWS_DEST_PATH . self::PARTIALS_DEST_PATH . self::UNIVERSAL_PARTIALS_DEST_PATH;
-	    $footerBladeFilePath = __DIR__ . self::BLADES_PATH . self::FOOTER_BLADE_FILENAME;
-	    mkdir($footerDestPath, 0775);
-	    $footerContents = file_get_contents($footerBladeFilePath);
-	    file_put_contents($footerDestPath . self::FOOTER_BLADE_DEST_FILENAME, $footerContents);
+        $viewDestPath = resource_path('views/partials/universal/');
+        self::makeDirectory($viewDestPath);
+
+        /*
+         * To add a new view, create a new function named "install_{viewname}"
+         * based off of examples below.  When the view gets installed, that
+         * function will be run.
+         */
+        $handlerFn = 'install_'.$viewName;
+        if (is_callable(self::$handlerFn()) ){
+            call_user_func(self::$handlerFn());
+        }
     }
+
+    private static function makeDirectory($dirPath)
+    {
+        if(!is_dir($dirPath)){
+            //Directory does not exist, so lets create it.
+            mkdir($dirPath, 0775, true);
+        }
+    }
+
+    private static function copyFile($source, $destination)
+    {
+        $viewContents = file_get_contents($source);
+        file_put_contents($destination, $viewContents);
+    }
+
+
+    private static function install_footer()
+    {
+        $filename = 'pb-footer.blade.php';
+        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
+        self::copyFile($viewSourcePath, $viewDestinationPath);
+    }
+
+    private static function install_navbar()
+    {
+        $filename = 'pb-navbar.blade.php';
+        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
+        self::copyFile($viewSourcePath, $viewDestinationPath);
+
+        $bespokeFile = 'currentProject.blade.php';
+        $bespokeSource =  __DIR__ . self::BLADES_PATH . $bespokeFile;
+        $bespokeDestination = resource_path('views/partials/'.$bespokeFile);
+        self::copyFile($bespokeSource, $bespokeDestination);
+    }
+
+    private static function install_loading()
+    {
+        $filename = 'pb-navbar.blade.php';
+        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
+        self::copyFile($viewSourcePath, $viewDestinationPath);
+    }
+
 }
