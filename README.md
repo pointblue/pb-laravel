@@ -18,6 +18,7 @@ views:
   - `footer` - Standard Point Blue footer
   - `navbar` - Standard Point Blue navigation bar
   - `loading` - loading bar, requires uib-progressbar
+  - `feedback` - zendesk feedback widget - install in `<head></head>`
   
 The view will be installed to the directory
 `resources/views/partials/universal`

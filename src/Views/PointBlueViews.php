@@ -104,4 +104,16 @@ class PointBlueViews extends Command
         self::copyFile($viewSourcePath, $viewDestinationPath);
     }
 
+    private static function install_feedback()
+    {
+		self::commonInstall('pb-feedback.blade.php');
+    }
+
+    private static function commonInstall($filename)
+    {
+	    $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+	    $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
+	    self::copyFile($viewSourcePath, $viewDestinationPath);
+    }
+
 }
