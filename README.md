@@ -33,6 +33,5 @@ The views will need these environment variables to be set in the `.env` file:
 ## Routes
 
 The following routes are assumed with code in the footer, and should be implemented in `app/Http/routes.php`
-  - /feedback
   - /release
-  - /help
+  - /docs
