@@ -34,7 +34,7 @@ The views will need these environment variables to be set in the `.env` file:
 
 ## Routes
 
-add the following routes to `app/Http/routes.php` :
+The following routes are assumed with code in the footer, and should be implemented in `app/Http/routes.php`:
 ```
 Route::get('/docs', function () {
     return view('pb-docs');
