@@ -104,4 +104,19 @@ class PointBlueViews extends Command
         self::copyFile($viewSourcePath, $viewDestinationPath);
     }
 
+    private static function install_docs()
+    {
+        $filename = 'pb-docs.blade.php';
+        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewDestinationPath = resource_path('views/'.$filename);
+        self::copyFile($viewSourcePath, $viewDestinationPath);
+    }
+
+    private static function install_release()
+    {
+        $filename = 'pb-release.blade.php';
+        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
+        $viewDestinationPath = resource_path('views/'.$filename);
+        self::copyFile($viewSourcePath, $viewDestinationPath);
+    }
 }
