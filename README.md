@@ -21,6 +21,8 @@ views:
   - `docs` - Documentation View, add to routes.php (see below)
   - `release` - Release Notes View, add to routes.php (see below)
 
+  - `feedback` - zendesk feedback widget - install in `<head></head>`
+  
 The view will be installed to the directory
 `resources/views/partials/universal`
 

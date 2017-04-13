@@ -3,13 +3,10 @@
 		<div class="pull-left">
 			<ul class="list-inline" style="padding-top:1em;">
 				<li>
-					<a href="{{env('APP_URL')}}/feedback">Feedback</a>
-				</li>
-				<li>
 					<a href="{{env('APP_URL')}}/release">Release Information</a>
 				</li>
 				<li>
-					<a href="{{env('APP_URL')}}/help">Help</a>
+					<a href="{{env('APP_URL')}}/docs">Documentation</a>
 				</li>
 				<li>
 					Logged in as @{{ currentUserId }}
@@ -21,7 +18,9 @@
 		</div>
 		<div class="pull-right">
 			<a href="http://www.pointblue.org/our-science-and-services/conservation-tools/data-solutions/">Powered by Point Blue Data Solutions</a>
-			<a href="http://www.pointblue.org"><img src="images/pb-logo-full.png" height="60px"></a>
+			<a href="http://www.pointblue.org"><img src="http://www.pointblue.org/logos/pb-logo-full.png" height="60px"></a>
 		</div>
 	</div>
 </footer>
+{{-- Create bottom spacing that gives the zendesk feedback widget a place to settle --}}
+<div style="margin-top: 3em;">&nbsp;</div>
