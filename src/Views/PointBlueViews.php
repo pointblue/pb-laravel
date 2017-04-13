@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 class PointBlueViews extends Command
 {
     const BLADES_PATH = '/blades/';
+	const UNIVERSALS_PATH = 'views/partials/universal/';
 
     /**
      * The name and signature of the console command.
@@ -46,7 +47,7 @@ class PointBlueViews extends Command
 
     private function installView($viewName)
     {
-        $viewDestPath = resource_path('views/partials/universal/');
+        $viewDestPath = resource_path(self::UNIVERSALS_PATH);
         self::makeDirectory($viewDestPath);
 
         /*
@@ -77,42 +78,43 @@ class PointBlueViews extends Command
 
     private static function install_footer()
     {
-        $filename = 'pb-footer.blade.php';
-        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
-        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
-        self::copyFile($viewSourcePath, $viewDestinationPath);
+	    self::commonInstall(self::UNIVERSALS_PATH . 'pb-footer.blade.php');
+	    self::install_release();
+	    self::install_docs();
     }
 
     private static function install_navbar()
     {
-        $filename = 'pb-navbar.blade.php';
-        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
-        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
-        self::copyFile($viewSourcePath, $viewDestinationPath);
-
-        $bespokeFile = 'currentProject.blade.php';
-        $bespokeSource =  __DIR__ . self::BLADES_PATH . $bespokeFile;
-        $bespokeDestination = resource_path('views/partials/'.$bespokeFile);
-        self::copyFile($bespokeSource, $bespokeDestination);
+	    self::commonInstall(self::UNIVERSALS_PATH . 'pb-navbar.blade.php');
+	    self::commonInstall(self::UNIVERSALS_PATH . 'currentProject.blade.php');
     }
 
     private static function install_loading()
     {
-        $filename = 'pb-navbar.blade.php';
-        $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
-        $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
-        self::copyFile($viewSourcePath, $viewDestinationPath);
+	    self::commonInstall(self::UNIVERSALS_PATH . 'pb-loading.blade.php');
     }
 
+    private static function install_docs()
+    {
+	    self::commonInstall('views/pb-docs.blade.php');
+    }
+
+    private static function install_release()
+    {
+	    self::commonInstall('views/pb-release.blade.php');
+    }
     private static function install_feedback()
     {
-		self::commonInstall('pb-feedback.blade.php');
+		self::commonInstall(self::UNIVERSALS_PATH . 'pb-feedback.blade.php');
     }
 
-    private static function commonInstall($filename)
+	/**
+	 * @param $templateFilePath String Relative to: __DIR__ . self::BLADES_PATH
+	 */
+    private static function commonInstall($templateFilePath)
     {
-	    $viewSourcePath = __DIR__ . self::BLADES_PATH . $filename;
-	    $viewDestinationPath = resource_path('views/partials/universal/'.$filename);
+	    $viewSourcePath = __DIR__ . self::BLADES_PATH . $templateFilePath;
+	    $viewDestinationPath = resource_path( $templateFilePath );
 	    self::copyFile($viewSourcePath, $viewDestinationPath);
     }
 
