@@ -29,3 +29,10 @@ The views will need these environment variables to be set in the `.env` file:
 - APP_URL
 - PB_APP_NAME
 - PB_APP_IMAGE_URL
+
+## Routes
+
+The following routes are assumed with code in the footer, and should be implemented in `app/Http/routes.php`
+  - /feedback
+  - /release
+  - /help
