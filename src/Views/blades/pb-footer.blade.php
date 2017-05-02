@@ -18,7 +18,7 @@
 		</div>
 		<div class="pull-right">
 			<a href="http://www.pointblue.org/our-science-and-services/conservation-tools/data-solutions/">Powered by Point Blue Data Solutions</a>
-			<a href="http://www.pointblue.org"><img src="http://www.pointblue.org/logos/pb-logo-full.png" height="60px"></a>
+			<a href="http://www.pointblue.org"><img src="//data.pointblue.org/images/pb-logo-full.png" height="60px"></a>
 		</div>
 	</div>
 </footer>
