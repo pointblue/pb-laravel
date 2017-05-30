@@ -11,7 +11,7 @@
             <a class="navbar-brand" href="{{$appPath}}">
                 <img src="{{ null !== env('PB_APP_IMAGE_URL')
                     ? env('PB_APP_IMAGE_URL')
-                    : "http://www.pointblue.org/logos/pointblue_logo_square.jpg"}}"
+                    : "//data.pointblue.org/images/pointblue_logo_square.jpg"}}"
                      alt="{{env('PB_APP_NAME')}}" class="brand-image img-rounded">
                 @yield('title')
             </a>
