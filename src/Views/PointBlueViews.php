@@ -6,8 +6,13 @@ use Illuminate\Console\Command;
 
 class PointBlueViews extends Command
 {
+    // source paths
 	const BLADES_PATH = '/blades/';
-	const UNIVERSALS_PATH = 'views/partials/universal/';
+	const STYLESHEETS_PATH = '/sass/';
+
+	// destination paths
+    const SASS_ASSETS_PATH = 'assets/sass/';
+    const UNIVERSALS_PATH = 'views/partials/universal/';
 
 	/**
 	 * The name and signature of the console command.
@@ -81,12 +86,15 @@ class PointBlueViews extends Command
 		self::commonInstall(self::UNIVERSALS_PATH, 'pb-footer.blade.php');
 		self::install_release();
 		self::install_docs();
+        self::install_stylesheets();
 	}
 
 	private static function install_navbar()
 	{
 		self::commonInstall(self::UNIVERSALS_PATH, 'pb-navbar.blade.php');
 		self::commonInstall(self::UNIVERSALS_PATH, 'currentProject.blade.php');
+        self::install_stylesheets();
+
 	}
 
 	private static function install_loading()
@@ -107,16 +115,29 @@ class PointBlueViews extends Command
 	{
 		self::commonInstall(self::UNIVERSALS_PATH, 'pb-feedback.blade.php');
 	}
+    private static function install_stylesheets()
+    {
+        $stylesheetFilePath = resource_path(self::SASS_ASSETS_PATH . 'app.scss');
+        if(!is_file($stylesheetFilePath)){
+            self::commonInstall(self::SASS_ASSETS_PATH, 'app.scss', 'stylesheet');
+        }
+    }
 
 	/**
 	 * @param $destinationFilePath String
 	 * @param $fileName String
+	 * @param $assetType String
 	 */
-	private static function commonInstall($destinationFilePath, $fileName)
+	private static function commonInstall($destinationFilePath, $fileName, $assetType = 'blade')
 	{
-		$viewSourcePath = __DIR__ . self::BLADES_PATH . $fileName;
-		$viewDestinationPath = resource_path( $destinationFilePath . $fileName );
-		self::copyFile($viewSourcePath, $viewDestinationPath);
+	    if($assetType === 'stylesheet'){
+	        $sourcePath = __DIR__ . self::STYLESHEETS_PATH . $fileName;
+        } else {
+            $sourcePath = __DIR__ . self::BLADES_PATH . $fileName;
+        }
+
+		$destinationPath = resource_path( $destinationFilePath . $fileName );
+		self::copyFile($sourcePath, $destinationPath);
 	}
 
 }

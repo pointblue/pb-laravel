@@ -46,3 +46,7 @@ Route::get('/release', function () {
     return view('pb-release');
 })->name('release');
 ```
+
+## Styles
+
+The stylesheet `assets/sass/styles.scss` should be included in your project under `/resources/assets/sass`
